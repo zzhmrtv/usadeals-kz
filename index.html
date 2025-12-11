@@ -1,70 +1,83 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
+<meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>USADEALS.KZ — Связаться</title>
+<title>USADEALS.KZ</title>
 
 <style>
   body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(180deg, #bfe3ff, #e9f5ff);
-    font-family: "Inter", Arial, sans-serif;
-    color: #003f6b;
+    background: #e6f3ff;
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
   }
 
-  .container {
+  .box {
     text-align: center;
-    animation: fadeIn 1.2s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  h1 {
-    font-size: 36px;
-    font-weight: 900;
-    text-transform: uppercase; /* 100% CAPS */
-    letter-spacing: 2px;
-    margin-bottom: 28px;
   }
 
   .btn {
-    display: inline-block;
-    padding: 16px 32px;
-    background: linear-gradient(90deg, #0094ff, #3cb9ff);
-    border-radius: 18px;
-    color: white;
-    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 26px;
+    background: #0095ff;
+    color: #fff;
     font-size: 18px;
     font-weight: 800;
-    box-shadow: 0 8px 25px rgba(0,149,255,.35);
+    border-radius: 14px;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(0,149,255,0.25);
     transition: 0.25s ease;
+    margin: 10px 0;
   }
 
   .btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0,149,255,.45);
+    background: #007ed4;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0,149,255,0.35);
+  }
+
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 </style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>USADEALS.KZ</h1>
 
-    <!-- Пока тестовый номер, заменим позже -->
+<div class="box">
+
+  <div class="row">
+
+    <!-- Кнопка WhatsApp -->
     <a class="btn" href="https://wa.me/77777777777" target="_blank">
-      СВЯЗАТЬСЯ
+      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="">
+      Связаться с менеджером
     </a>
+
+    <!-- Кнопка Telegram -->
+    <a class="btn" href="https://t.me/YOUR_TELEGRAM_USERNAME" target="_blank">
+      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="">
+      Telegram
+    </a>
+
   </div>
+
+</div>
+
 </body>
 </html>
