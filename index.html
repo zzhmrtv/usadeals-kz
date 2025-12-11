@@ -3,110 +3,67 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>USADeals.kz — Товары из США</title>
+
+<title>Связаться — USADeals.kz</title>
 
 <style>
   body {
     margin: 0;
-    background: #e9f5ff;
-    font-family: Arial, sans-serif;
+    padding: 0;
+    background: linear-gradient(180deg, #bfe3ff, #e9f5ff);
+    font-family: "Inter", Arial, sans-serif;
     color: #003f6b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
-  .wrap {
-    max-width: 420px;
-    margin: 0 auto;
-    padding: 20px;
+
+  .container {
     text-align: center;
+    animation: fadeIn 1.2s ease;
   }
-  .avatar {
-    width: 110px;
-    height: 110px;
-    border-radius: 100px;
-    background: #d7edff;
-    display: block;
-    margin: 0 auto 15px;
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
+
   h1 {
-    margin: 5px 0 10px;
-    font-size: 22px;
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 25px;
+    letter-spacing: -1px;
   }
-  p.sub {
-    margin: 0 0 18px;
-    color: #005a96;
-    font-size: 14px;
-  }
+
   .btn {
-    display: block;
-    margin: 12px 0;
-    padding: 14px;
-    border-radius: 14px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 15px;
-  }
-  .btn.main {
-    background: #0095ff;
+    display: inline-block;
+    padding: 16px 28px;
+    background: linear-gradient(90deg, #0094ff, #3cb9ff);
+    border-radius: 18px;
     color: white;
-    box-shadow: 0 4px 12px rgba(0,149,255,0.3);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 800;
+    box-shadow: 0 8px 25px rgba(0,149,255,.35);
+    transition: 0.25s ease;
   }
-  .btn.ghost {
-    background: white;
-    border: 2px solid #0095ff;
-    color: #005a96;
-  }
-  .section-title {
-    text-align: left;
-    margin-top: 24px;
-    font-size: 17px;
-    font-weight: bold;
-    color: #004a7d;
-  }
-  .item {
-    text-align: left;
-    margin-top: 6px;
-    font-size: 14px;
-    color: #005a96;
-  }
-  footer {
-    margin-top: 25px;
-    font-size: 12px;
-    color: #005a96;
+
+  .btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,149,255,.45);
   }
 </style>
 </head>
 
 <body>
-<div class="wrap">
+  <div class="container">
+    <h1>USADeals.kz</h1>
 
-  <div class="avatar"></div>
-
-  <h1>USADeals.kz</h1>
-  <p class="sub">Товары из США с доставкой в Казахстан<br>Оригинальная одежда, кроссовки и техника</p>
-
-  <a class="btn main" href="https://wa.me/77777777777" target="_blank">
-    Сделать заказ (WhatsApp)
-  </a>
-
-  <a class="btn ghost" href="#">
-    Каталог / Прайс (скоро)
-  </a>
-
-  <a class="btn ghost" href="#">
-    Новинки недели
-  </a>
-
-  <div class="section-title">Популярные категории</div>
-  <div class="item">👟 Кроссовки Nike / New Balance / Adidas</div>
-  <div class="item">👕 Одежда Zara / Uniqlo / Hollister</div>
-  <div class="item">📱 Гаджеты Apple / Fitbit / Bose</div>
-  <div class="item">🎁 Аксессуары и косметика</div>
-
-  <div class="section-title">Отзывы клиентов</div>
-  <div class="item">⭐ «Кроссовки Nike приехали за 13 дней, всё оригинал!»</div>
-  <div class="item">⭐ «Очень помог с выбором размера. Рекомендую.»</div>
-  <div class="item">⭐ «Цена ниже, чем в Алмате — топ!»</div>
-
-  <footer>© 2025 USADeals.kz — Доставка по Казахстану</footer>
-</div>
+    <!-- Пока тестовый номер, заменим позже -->
+    <a class="btn" href="https://wa.me/77777777777" target="_blank">
+      Связаться
+    </a>
+  </div>
 </body>
 </html>
