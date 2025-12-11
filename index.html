@@ -35,7 +35,6 @@
     text-decoration: none;
     box-shadow: 0 6px 16px rgba(0,149,255,0.25);
     transition: 0.25s ease;
-    margin: 10px 0;
   }
 
   .btn:hover {
@@ -52,7 +51,7 @@
   .row {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;    /* было 12px — стало ближе */
   }
 </style>
 </head>
@@ -63,15 +62,13 @@
 
   <div class="row">
 
-    <!-- Кнопка WhatsApp -->
     <a class="btn" href="https://wa.me/77777777777" target="_blank">
-      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="">
+      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
       Связаться с менеджером
     </a>
 
-    <!-- Кнопка Telegram -->
     <a class="btn" href="https://t.me/YOUR_TELEGRAM_USERNAME" target="_blank">
-      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="">
+      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg">
       Telegram
     </a>
 
