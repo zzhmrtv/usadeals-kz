@@ -6,72 +6,127 @@
 
 <title>USADEALS.KZ</title>
 
+<!-- Premium font INTER -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
 <style>
   body {
     margin: 0;
     padding: 0;
-
-    /* ФОН ТВОЕЙ КАРТИНКИ */
-    background-image: url("https://cdn.create.vista.com/api/media/medium/80417548/stock-photo-usa-and-kazakhstan?token=");
-    background-size: cover;       /* растягиваем красиво */
-    background-position: center;  /* центрируем */
-    background-repeat: no-repeat; /* не повторять */
     height: 100vh;
-
-    /* Добавляем мягкий фильтр поверх — чтобы кнопки не терялись */
-    position: relative;
-    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #f7faff, #e8f2ff);
+    font-family: 'Inter', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
   }
 
-  /* Прозрачный бело-голубой слой поверх флага (чтобы текст был читабельный) */
-  body::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(2px);
+  @keyframes fadeIn {
+    to { opacity: 1; }
   }
 
   .box {
-    position: relative; /* чтобы слой не перекрывал кнопки */
     text-align: center;
-    z-index: 10;
+    max-width: 360px;
+    width: 100%;
+    padding: 0 14px;
+  }
+
+  /* Название */
+  .title {
+    font-size: 26px;
+    font-weight: 900;
+    color: #003b66;
+    margin-bottom: 4px;
+    letter-spacing: 1.1px;
+  }
+
+  /* Логотип */
+  .logo {
+    width: 95px;
+    margin: 4px auto 12px;
+  }
+
+  /* Подзаголовок */
+  .subtitle {
+    font-size: 13px;
+    font-weight: 600;
+    color: #005891;
+    margin-bottom: 18px;
+  }
+
+  /* Кнопки */
+  .row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 16px 26px;
-    background: #0095ff;
-    color: #fff;
-    font-size: 18px;
+    gap: 9px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 16px;
     font-weight: 800;
-    border-radius: 14px;
     text-decoration: none;
-    box-shadow: 0 6px 16px rgba(0,149,255,0.35);
+    color: #fff;
     transition: 0.25s ease;
   }
 
-  .btn:hover {
-    background: #007ed4;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 22px rgba(0,149,255,0.45);
+  .btn-wh {
+    background: #25D366;
+  }
+
+  .btn-wh:hover {
+    background: #1ebe57;
+    transform: translateY(-2px);
+  }
+
+  .btn-tg {
+    background: #2AABEE;
+  }
+
+  .btn-tg:hover {
+    background: #1d9bd8;
+    transform: translateY(-2px);
   }
 
   .icon {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
   }
 
-  .row {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  /* Блок О нас (Glassmorphism) */
+  .about {
+    background: rgba(255,255,255,0.45);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #003b66;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.35);
   }
+
+  .about-title {
+    font-size: 16px;
+    font-weight: 900;
+    margin-bottom: 6px;
+  }
+
+  /* iPhone адаптация */
+  @media (max-width: 420px) {
+    .title { font-size: 24px; }
+    .btn { font-size: 15px; padding: 13px 18px; }
+    .logo { width: 90px; }
+  }
+
 </style>
 </head>
 
@@ -79,20 +134,28 @@
 
 <div class="box">
 
+  <div class="title">USADEALS.KZ</div>
+
+  <img class="logo" src="logo.png" alt="logo">
+
+  <div class="subtitle">Оригинальные товары из США в Казахстан</div>
+
   <div class="row">
-
-    <!-- WhatsApp -->
-    <a class="btn" href="https://wa.me/77777777777" target="_blank">
+    <a class="btn btn-wh" href="https://wa.me/77777777777" target="_blank">
       <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-      Менеджер в WhatsApp
+      WhatsApp
     </a>
 
-    <!-- Telegram -->
-    <a class="btn" href="https://t.me/YOUR_TELEGRAM_USERNAME" target="_blank">
+    <a class="btn btn-tg" href="https://t.me/YOUR_TELEGRAM_USERNAME" target="_blank">
       <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg">
-      Менеджер в Telegram
+      Telegram
     </a>
+  </div>
 
+  <div class="about">
+    <div class="about-title">О нас</div>
+    Мы — USADEALS.KZ. Помогаем заказывать оригинальные товары напрямую из США 
+    и доставлять по всему Казахстану. Работаем честно, быстро и прозрачно.
   </div>
 
 </div>
