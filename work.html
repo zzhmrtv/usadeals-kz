@@ -13,18 +13,13 @@
       color: #0f172a;
       padding: 28px 24px 40px;
 
-      /* 🔥 АНИМАЦИЯ */
+      /* 🌟 анимация страницы */
       opacity: 0;
       transition: opacity 0.35s ease;
     }
 
-    body.show {
-      opacity: 1;
-    }
-
-    body.fade-out {
-      opacity: 0;
-    }
+    body.show { opacity: 1; }
+    body.fade-out { opacity: 0; }
 
     .top {
       display: flex;
@@ -98,19 +93,25 @@
       transform: scale(0.97);
     }
 
-    /* MODAL */
+    /* 🔥 МОДАЛКА С АНИМАЦИЕЙ */
     .modal {
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.3);
-      display: none;
+
+      display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
+
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
     }
 
     .modal.active {
-      display: flex;
+      opacity: 1;
+      pointer-events: auto;
     }
 
     .modal-box {
@@ -119,6 +120,13 @@
       padding: 20px;
       width: 100%;
       max-width: 400px;
+
+      transform: translateY(24px);
+      transition: transform 0.25s ease;
+    }
+
+    .modal.active .modal-box {
+      transform: translateY(0);
     }
 
     input, textarea {
@@ -130,9 +138,7 @@
       border: 1px solid #e2e8f0;
     }
 
-    textarea {
-      resize: none;
-    }
+    textarea { resize: none; }
 
     .save {
       width: 100%;
@@ -155,7 +161,6 @@
   </div>
 
   <div class="subtitle" id="cityLine"></div>
-
   <div id="jobs"></div>
 
   <button class="add-btn" onclick="openModal()">+ Добавить</button>
@@ -174,7 +179,6 @@
   </div>
 
   <script>
-    // 🌟 плавное появление
     window.addEventListener("load", () => {
       document.body.classList.add("show");
     });
