@@ -79,6 +79,18 @@
       max-width: 320px;
     }
 
+    /* 🔥 GOOGLE CENTER FIX */
+    .google-btn {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 16px;
+    }
+
+    .google-btn iframe {
+      margin: 0 auto !important;
+    }
+
     input {
       width: 100%;
       padding: 18px;
@@ -133,7 +145,10 @@
       data-auto_prompt="false">
     </div>
 
-    <div id="googleSignIn"></div>
+    <!-- ✅ ВАЖНО: ОБЁРТКА -->
+    <div class="google-btn">
+      <div id="googleSignIn"></div>
+    </div>
 
     <input type="text" placeholder="Имя">
     <input type="email" placeholder="Email">
