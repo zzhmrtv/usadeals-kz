@@ -1,39 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JOLDA</title>
+
+  <meta name="theme-color" content="#ffffff">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: #ffffff;
+      color: #0f172a;
+    }
+
+    .screen {
+      min-height: 100vh;
+      display: none;
+      padding: 28px 24px 40px;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* HEADER */
+    .header {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      color: #3b82f6;
+    }
+
+    /* CENTER */
+    .center {
+      margin-top: 120px;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin: 0 0 14px 0;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.45;
+      color: #475569;
+      margin: 0;
+      max-width: 320px;
+    }
+
+    /* ACTION */
+    .action {
+      margin-top: 40px;
+    }
+
+    button {
+      width: 100%;
+      background: #3b82f6;
+      color: #ffffff;
+      border: none;
+      border-radius: 18px;
+      padding: 20px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      box-shadow: 0 10px 30px rgba(59,130,246,0.25);
+    }
+
+    button:active {
+      transform: scale(0.98);
+      box-shadow: 0 6px 18px rgba(59,130,246,0.2);
+    }
+
+    /* FOOTER */
+    .footer {
+      font-size: 13px;
+      color: #94a3b8;
+      text-align: center;
+      margin-top: 18px;
+    }
+  </style>
+</head>
 <body>
 
-  <!-- Экран 1 -->
+  <!-- WELCOME -->
   <section id="welcome" class="screen active">
-    <h1>Добро пожаловать</h1>
-    <p>Это приложение поможет тебе адаптироваться в США.</p>
-    <button onclick="goToState()">Начать</button>
+
+    <div class="header">JOLDA</div>
+
+    <div class="center">
+      <h1>Ты в США.</h1>
+      <p>
+        JOLDA — тихая помощь с документами, работой и жизнью.
+      </p>
+    </div>
+
+    <div class="action">
+      <button onclick="goNext()">Продолжить</button>
+      <div class="footer">Без спама · Без обмана</div>
+    </div>
+
   </section>
 
-  <!-- Экран 2 -->
-  <section id="state" class="screen">
-    <h2>Выбери штат</h2>
-    <select id="stateSelect">
-      <option>New York</option>
-      <option>California</option>
-      <option>Texas</option>
-      <option>Florida</option>
-      <option>Illinois</option>
-    </select>
-    <button onclick="goToCity()">Далее</button>
+  <!-- NEXT (заглушка) -->
+  <section id="next" class="screen">
+
+    <div class="header">JOLDA</div>
+
+    <div class="center">
+      <h1>Где ты сейчас?</h1>
+      <p>Выбери штат, чтобы мы показали полезное рядом.</p>
+    </div>
+
+    <div class="action">
+      <button onclick="alert('Дальше — карточки штатов')">Выбрать штат</button>
+      <div class="footer">Можно изменить позже</div>
+    </div>
+
   </section>
 
-  <!-- Экран 3 -->
-  <section id="city" class="screen">
-    <h2>Выбери город</h2>
-    <select id="citySelect"></select>
-    <button onclick="goToRegister()">Далее</button>
-  </section>
+  <script>
+    function goNext() {
+      document.getElementById('welcome').classList.remove('active');
+      document.getElementById('next').classList.add('active');
+    }
+  </script>
 
-  <!-- Экран 4 -->
-  <section id="register" class="screen">
-    <h2>Регистрация</h2>
-    <input type="text" placeholder="Имя">
-    <input type="email" placeholder="Email">
-    <button onclick="finish()">Готово</button>
-  </section>
-
-  <script src="app.js"></script>
 </body>
+</html>
