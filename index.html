@@ -7,7 +7,6 @@
 
   <meta name="theme-color" content="#ffffff">
 
-  <!-- Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
@@ -18,8 +17,6 @@
       font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
       background: #ffffff;
       color: #0f172a;
-
-      /* 🌟 анимация страницы */
       opacity: 0;
       transition: opacity 0.35s ease;
     }
@@ -27,25 +24,37 @@
     body.show { opacity: 1; }
     body.fade-out { opacity: 0; }
 
-    /* 🔥 АНИМАЦИЯ ЭКРАНОВ */
     .screen {
       position: absolute;
       inset: 0;
       padding: 28px 24px 40px;
-
       opacity: 0;
       transform: translateY(16px);
       pointer-events: none;
-
-      transition:
-        opacity 0.35s ease,
-        transform 0.35s ease;
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
     .screen.active {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .back {
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: #2563eb;
+      cursor: pointer;
+      padding: 0;
     }
 
     .header {
@@ -55,20 +64,18 @@
       color: #3b82f6;
     }
 
-    .center { margin-top: 100px; }
+    .center { margin-top: 80px; }
 
     h1 {
       font-size: 34px;
       font-weight: 700;
-      letter-spacing: -0.03em;
-      margin: 0 0 12px 0;
+      margin: 0 0 12px;
     }
 
     p {
       font-size: 17px;
-      line-height: 1.45;
       color: #475569;
-      margin: 0 0 24px 0;
+      margin-bottom: 24px;
       max-width: 320px;
     }
 
@@ -81,12 +88,7 @@
       margin-bottom: 16px;
     }
 
-    input:focus {
-      outline: none;
-      border-color: #3b82f6;
-    }
-
-    button {
+    button.main {
       width: 100%;
       background: #3b82f6;
       color: #ffffff;
@@ -95,29 +97,6 @@
       padding: 20px;
       font-size: 18px;
       font-weight: 600;
-      box-shadow: 0 10px 30px rgba(59,130,246,0.25);
-    }
-
-    button:active { transform: scale(0.98); }
-
-    .google-btn {
-      margin-top: 8px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .divider {
-      text-align: center;
-      font-size: 13px;
-      color: #94a3b8;
-      margin: 16px 0;
-    }
-
-    .footer {
-      font-size: 13px;
-      color: #94a3b8;
-      text-align: center;
-      margin-top: 18px;
     }
 
     .card {
@@ -129,12 +108,17 @@
       cursor: pointer;
     }
 
-    .card:active { background: #f1f5f9; }
+    .footer {
+      font-size: 13px;
+      color: #94a3b8;
+      text-align: center;
+      margin-top: 18px;
+    }
   </style>
 </head>
 <body>
 
-<!-- REGISTRATION -->
+<!-- REGISTER -->
 <section id="register" class="screen active">
   <div class="header">JOLDA</div>
 
@@ -149,22 +133,24 @@
       data-auto_prompt="false">
     </div>
 
-    <div class="google-btn" id="googleSignIn"></div>
-    <div class="divider">или</div>
+    <div id="googleSignIn"></div>
 
     <input type="text" placeholder="Имя">
     <input type="email" placeholder="Email">
   </div>
 
   <div>
-    <button onclick="goToState()">Продолжить</button>
+    <button class="main" onclick="showScreen('state')">Продолжить</button>
     <div class="footer">Без спама · Без обмана</div>
   </div>
 </section>
 
 <!-- STATE -->
 <section id="state" class="screen">
-  <div class="header">JOLDA</div>
+  <div class="top">
+    <button class="back" onclick="showScreen('register')">← Назад</button>
+    <div class="header">JOLDA</div>
+  </div>
 
   <div class="center">
     <h1>Штат</h1>
@@ -181,7 +167,10 @@
 
 <!-- CITY -->
 <section id="city" class="screen">
-  <div class="header">JOLDA</div>
+  <div class="top">
+    <button class="back" onclick="showScreen('state')">← Назад</button>
+    <div class="header">JOLDA</div>
+  </div>
 
   <div class="center">
     <h1>Город</h1>
@@ -200,7 +189,7 @@
     "Florida": ["Miami", "Orlando", "Tampa"]
   };
 
-  window.onload = function () {
+  window.onload = () => {
     document.body.classList.add("show");
 
     google.accounts.id.renderButton(
@@ -210,42 +199,31 @@
   };
 
   function handleGoogleLogin() {
-    goToState();
-  }
-
-  function goToState() {
     showScreen("state");
   }
 
   function selectState(state) {
     localStorage.setItem("state", state);
-
-    const cityList = document.getElementById("cityList");
-    const cityTitle = document.getElementById("cityTitle");
-
-    cityTitle.innerText = `Штат: ${state}`;
-    cityList.innerHTML = "";
+    const list = document.getElementById("cityList");
+    document.getElementById("cityTitle").innerText = `Штат: ${state}`;
+    list.innerHTML = "";
 
     cities[state].forEach(city => {
       const div = document.createElement("div");
       div.className = "card";
       div.innerText = city;
-      div.onclick = () => selectCity(city);
-      cityList.appendChild(div);
+      div.onclick = () => {
+        localStorage.setItem("city", city);
+        goTo("app.html");
+      };
+      list.appendChild(div);
     });
 
     showScreen("city");
   }
 
-  function selectCity(city) {
-    localStorage.setItem("city", city);
-    goTo("app.html");
-  }
-
   function showScreen(id) {
-    document.querySelectorAll(".screen")
-      .forEach(s => s.classList.remove("active"));
-
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
   }
 </script>
