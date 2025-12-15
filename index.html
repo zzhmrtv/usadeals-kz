@@ -19,29 +19,33 @@
       background: #ffffff;
       color: #0f172a;
 
-      /* 🔥 АНИМАЦИЯ */
+      /* 🌟 анимация страницы */
       opacity: 0;
       transition: opacity 0.35s ease;
     }
 
-    body.show {
-      opacity: 1;
-    }
+    body.show { opacity: 1; }
+    body.fade-out { opacity: 0; }
 
-    body.fade-out {
-      opacity: 0;
-    }
-
+    /* 🔥 АНИМАЦИЯ ЭКРАНОВ */
     .screen {
-      min-height: 100vh;
-      display: none;
+      position: absolute;
+      inset: 0;
       padding: 28px 24px 40px;
+
+      opacity: 0;
+      transform: translateY(16px);
+      pointer-events: none;
+
+      transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
     }
 
     .screen.active {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
     .header {
@@ -51,9 +55,7 @@
       color: #3b82f6;
     }
 
-    .center {
-      margin-top: 100px;
-    }
+    .center { margin-top: 100px; }
 
     h1 {
       font-size: 34px;
@@ -96,9 +98,7 @@
       box-shadow: 0 10px 30px rgba(59,130,246,0.25);
     }
 
-    button:active {
-      transform: scale(0.98);
-    }
+    button:active { transform: scale(0.98); }
 
     .google-btn {
       margin-top: 8px;
@@ -129,9 +129,7 @@
       cursor: pointer;
     }
 
-    .card:active {
-      background: #f1f5f9;
-    }
+    .card:active { background: #f1f5f9; }
   </style>
 </head>
 <body>
@@ -152,7 +150,6 @@
     </div>
 
     <div class="google-btn" id="googleSignIn"></div>
-
     <div class="divider">или</div>
 
     <input type="text" placeholder="Имя">
@@ -189,7 +186,6 @@
   <div class="center">
     <h1>Город</h1>
     <p id="cityTitle"></p>
-
     <div id="cityList"></div>
   </div>
 
@@ -247,12 +243,13 @@
   }
 
   function showScreen(id) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".screen")
+      .forEach(s => s.classList.remove("active"));
+
     document.getElementById(id).classList.add("active");
   }
 </script>
 
-<!-- 🔥 ОБЩИЙ ФАЙЛ АНИМАЦИИ -->
 <script src="anim.js"></script>
 
 </body>
