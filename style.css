@@ -1,0 +1,18 @@
+.screen {
+  display: none;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.screen.active {
+  display: block;
+}
+
+select, input {
+  width: 100%;
+  padding: 14px;
+  margin: 15px 0;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
