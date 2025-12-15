@@ -11,25 +11,87 @@
       font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
       background: #ffffff;
       color: #0f172a;
-      padding: 32px 24px;
+      padding: 28px 24px 40px;
     }
 
     h1 {
       font-size: 28px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
-    p {
-      font-size: 17px;
+    .location {
+      font-size: 16px;
       color: #475569;
+      margin-bottom: 32px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 20px;
+      font-size: 18px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+    }
+
+    .card:active {
+      background: #f1f5f9;
+    }
+
+    .icon {
+      width: 26px;
+      height: 26px;
+      stroke: #2563eb;
+      stroke-width: 1.8;
+      fill: none;
     }
   </style>
 </head>
 <body>
 
   <h1>JOLDA</h1>
-  <p id="location"></p>
+  <div class="location" id="location"></div>
+
+  <div class="grid">
+
+    <!-- WORK -->
+    <div class="card" onclick="openSection('work')">
+      <svg class="icon" viewBox="0 0 24 24">
+        <rect x="3" y="7" width="18" height="13" rx="2"/>
+        <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+      </svg>
+      Работа
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div class="card" onclick="openSection('docs')">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M6 2h8l4 4v16H6z"/>
+        <path d="M14 2v4h4"/>
+      </svg>
+      Документы
+    </div>
+
+    <!-- HOUSING -->
+    <div class="card" onclick="openSection('housing')">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M3 10.5L12 3l9 7.5"/>
+        <path d="M5 10v10h14V10"/>
+      </svg>
+      Жильё
+    </div>
+
+  </div>
 
   <script>
     const state = localStorage.getItem("state");
@@ -41,6 +103,12 @@
 
     document.getElementById("location").innerText =
       `Ты в ${city}, ${state}`;
+
+    function openSection(section) {
+      alert("Раздел: " + section);
+      // дальше:
+      // window.location.href = section + ".html";
+    }
   </script>
 
 </body>
