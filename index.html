@@ -7,6 +7,9 @@
 
   <meta name="theme-color" content="#ffffff">
 
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -31,7 +34,6 @@
       justify-content: space-between;
     }
 
-    /* HEADER */
     .header {
       font-size: 12px;
       font-weight: 600;
@@ -39,29 +41,37 @@
       color: #3b82f6;
     }
 
-    /* CENTER */
     .center {
       margin-top: 120px;
     }
 
     h1 {
-      font-size: 36px;
+      font-size: 34px;
       font-weight: 700;
       letter-spacing: -0.03em;
-      margin: 0 0 14px 0;
+      margin: 0 0 12px 0;
     }
 
     p {
-      font-size: 18px;
+      font-size: 17px;
       line-height: 1.45;
       color: #475569;
-      margin: 0;
+      margin: 0 0 24px 0;
       max-width: 320px;
     }
 
-    /* ACTION */
-    .action {
-      margin-top: 40px;
+    input {
+      width: 100%;
+      padding: 18px;
+      font-size: 17px;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 16px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #3b82f6;
     }
 
     button {
@@ -73,16 +83,26 @@
       padding: 20px;
       font-size: 18px;
       font-weight: 600;
-      letter-spacing: -0.01em;
       box-shadow: 0 10px 30px rgba(59,130,246,0.25);
     }
 
     button:active {
       transform: scale(0.98);
-      box-shadow: 0 6px 18px rgba(59,130,246,0.2);
     }
 
-    /* FOOTER */
+    .google-btn {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .divider {
+      text-align: center;
+      font-size: 13px;
+      color: #94a3b8;
+      margin: 16px 0;
+    }
+
     .footer {
       font-size: 13px;
       color: #94a3b8;
@@ -93,45 +113,81 @@
 </head>
 <body>
 
-  <!-- WELCOME -->
-  <section id="welcome" class="screen active">
+  <!-- REGISTRATION -->
+  <section id="register" class="screen active">
 
     <div class="header">JOLDA</div>
 
     <div class="center">
-      <h1>Ты в США.</h1>
-      <p>
-        JOLDA — тихая помощь с документами, работой и жизнью.
-      </p>
+      <h1>Регистрация</h1>
+      <p>Быстрый вход через Google или вручную.</p>
+
+      <!-- Google config -->
+      <div
+        id="g_id_onload"
+        data-client_id="PASTE_YOUR_GOOGLE_CLIENT_ID_HERE"
+        data-callback="handleGoogleLogin"
+        data-auto_prompt="false">
+      </div>
+
+      <!-- Google button -->
+      <div class="google-btn" id="googleSignIn"></div>
+
+      <div class="divider">или</div>
+
+      <input type="text" placeholder="Имя">
+      <input type="email" placeholder="Email">
     </div>
 
-    <div class="action">
+    <div>
       <button onclick="goNext()">Продолжить</button>
       <div class="footer">Без спама · Без обмана</div>
     </div>
 
   </section>
 
-  <!-- NEXT (заглушка) -->
+  <!-- NEXT SCREEN -->
   <section id="next" class="screen">
 
     <div class="header">JOLDA</div>
 
     <div class="center">
       <h1>Где ты сейчас?</h1>
-      <p>Выбери штат, чтобы мы показали полезное рядом.</p>
+      <p>Выбери штат, чтобы мы показали полезную информацию рядом.</p>
     </div>
 
-    <div class="action">
-      <button onclick="alert('Дальше — карточки штатов')">Выбрать штат</button>
+    <div>
+      <button onclick="alert('Дальше — выбор штата')">Выбрать штат</button>
       <div class="footer">Можно изменить позже</div>
     </div>
 
   </section>
 
   <script>
+    // Render Google button
+    window.onload = function () {
+      google.accounts.id.renderButton(
+        document.getElementById("googleSignIn"),
+        {
+          theme: "outline",
+          size: "large",
+          shape: "pill",
+          width: 280
+        }
+      );
+    };
+
+    function handleGoogleLogin(response) {
+      console.log("Google JWT:", response.credential);
+
+      // тут позже можно сохранить пользователя
+      // localStorage.setItem("user", response.credential);
+
+      goNext();
+    }
+
     function goNext() {
-      document.getElementById('welcome').classList.remove('active');
+      document.getElementById('register').classList.remove('active');
       document.getElementById('next').classList.add('active');
     }
   </script>
