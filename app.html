@@ -12,6 +12,18 @@
       background: #ffffff;
       color: #0f172a;
       padding: 28px 24px 40px;
+
+      /* 🔥 АНИМАЦИЯ */
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    body.show {
+      opacity: 1;
+    }
+
+    body.fade-out {
+      opacity: 0;
     }
 
     h1 {
@@ -94,22 +106,30 @@
   </div>
 
   <script>
+    // 🌟 плавное появление
+    window.addEventListener("load", () => {
+      document.body.classList.add("show");
+    });
+
     const state = localStorage.getItem("state");
     const city = localStorage.getItem("city");
 
-    // Защита: если нет города — возвращаем в онбординг
+    // защита
     if (!state || !city) {
-      window.location.href = "index.html";
+      goTo("index.html");
     }
 
     document.getElementById("location").innerText =
       `Ты в ${city}, ${state}`;
 
-    // ⬇️ ВОТ ЭТА ФУНКЦИЯ ГЛАВНАЯ
+    // 🔥 переходы ТОЛЬКО через goTo
     function openSection(section) {
-      window.location.href = section + ".html";
+      goTo(section + ".html");
     }
   </script>
+
+  <!-- ОБЩИЙ ФАЙЛ АНИМАЦИИ -->
+  <script src="anim.js"></script>
 
 </body>
 </html>
