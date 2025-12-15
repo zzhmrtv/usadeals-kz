@@ -11,9 +11,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -42,36 +40,33 @@
     }
 
     .center {
-      margin-top: 120px;
+      margin-top: 100px;
     }
 
     h1 {
       font-size: 34px;
       font-weight: 700;
-      letter-spacing: -0.03em;
       margin: 0 0 12px 0;
+      letter-spacing: -0.03em;
     }
 
     p {
       font-size: 17px;
-      line-height: 1.45;
       color: #475569;
       margin: 0 0 24px 0;
       max-width: 320px;
     }
 
-    input {
-      width: 100%;
-      padding: 18px;
-      font-size: 17px;
-      border-radius: 16px;
+    .card {
       border: 1px solid #e2e8f0;
-      margin-bottom: 16px;
+      border-radius: 18px;
+      padding: 18px;
+      font-size: 18px;
+      margin-bottom: 12px;
     }
 
-    input:focus {
-      outline: none;
-      border-color: #3b82f6;
+    .card:active {
+      background: #f1f5f9;
     }
 
     button {
@@ -83,15 +78,9 @@
       padding: 20px;
       font-size: 18px;
       font-weight: 600;
-      box-shadow: 0 10px 30px rgba(59,130,246,0.25);
-    }
-
-    button:active {
-      transform: scale(0.98);
     }
 
     .google-btn {
-      margin-top: 8px;
       display: flex;
       justify-content: center;
     }
@@ -113,84 +102,107 @@
 </head>
 <body>
 
-  <!-- REGISTRATION -->
-  <section id="register" class="screen active">
+<!-- REGISTRATION -->
+<section id="register" class="screen active">
+  <div class="header">JOLDA</div>
 
-    <div class="header">JOLDA</div>
+  <div class="center">
+    <h1>Регистрация</h1>
+    <p>Быстрый вход через Google.</p>
 
-    <div class="center">
-      <h1>Регистрация</h1>
-      <p>Быстрый вход через Google или вручную.</p>
-
-      <!-- Google config -->
-      <div
-        id="g_id_onload"
-        data-client_id="PASTE_YOUR_GOOGLE_CLIENT_ID_HERE"
-        data-callback="handleGoogleLogin"
-        data-auto_prompt="false">
-      </div>
-
-      <!-- Google button -->
-      <div class="google-btn" id="googleSignIn"></div>
-
-      <div class="divider">или</div>
-
-      <input type="text" placeholder="Имя">
-      <input type="email" placeholder="Email">
+    <div
+      id="g_id_onload"
+      data-client_id="PASTE_YOUR_GOOGLE_CLIENT_ID_HERE"
+      data-callback="handleGoogleLogin"
+      data-auto_prompt="false">
     </div>
 
-    <div>
-      <button onclick="goNext()">Продолжить</button>
-      <div class="footer">Без спама · Без обмана</div>
-    </div>
+    <div class="google-btn" id="googleSignIn"></div>
+  </div>
 
-  </section>
+  <div class="footer">Без спама · Без обмана</div>
+</section>
 
-  <!-- NEXT SCREEN -->
-  <section id="next" class="screen">
+<!-- STATE -->
+<section id="state" class="screen">
+  <div class="header">JOLDA</div>
 
-    <div class="header">JOLDA</div>
+  <div class="center">
+    <h1>Штат</h1>
+    <p>Где ты сейчас?</p>
 
-    <div class="center">
-      <h1>Где ты сейчас?</h1>
-      <p>Выбери штат, чтобы мы показали полезную информацию рядом.</p>
-    </div>
+    <div class="card" onclick="selectState('New York')">New York</div>
+    <div class="card" onclick="selectState('California')">California</div>
+    <div class="card" onclick="selectState('Texas')">Texas</div>
+    <div class="card" onclick="selectState('Florida')">Florida</div>
+  </div>
 
-    <div>
-      <button onclick="alert('Дальше — выбор штата')">Выбрать штат</button>
-      <div class="footer">Можно изменить позже</div>
-    </div>
+  <div class="footer">Можно изменить позже</div>
+</section>
 
-  </section>
+<!-- CITY -->
+<section id="city" class="screen">
+  <div class="header">JOLDA</div>
 
-  <script>
-    // Render Google button
-    window.onload = function () {
-      google.accounts.id.renderButton(
-        document.getElementById("googleSignIn"),
-        {
-          theme: "outline",
-          size: "large",
-          shape: "pill",
-          width: 280
-        }
-      );
-    };
+  <div class="center">
+    <h1>Город</h1>
+    <p id="cityHint"></p>
 
-    function handleGoogleLogin(response) {
-      console.log("Google JWT:", response.credential);
+    <div id="cityList"></div>
+  </div>
 
-      // тут позже можно сохранить пользователя
-      // localStorage.setItem("user", response.credential);
+  <div class="footer">Последний шаг</div>
+</section>
 
-      goNext();
-    }
+<script>
+  const cities = {
+    "New York": ["New York City", "Brooklyn", "Queens"],
+    "California": ["Los Angeles", "San Diego", "San Jose"],
+    "Texas": ["Houston", "Dallas", "Austin"],
+    "Florida": ["Miami", "Orlando", "Tampa"]
+  };
 
-    function goNext() {
-      document.getElementById('register').classList.remove('active');
-      document.getElementById('next').classList.add('active');
-    }
-  </script>
+  window.onload = () => {
+    google.accounts.id.renderButton(
+      document.getElementById("googleSignIn"),
+      { theme: "outline", size: "large", shape: "pill", width: 280 }
+    );
+  };
+
+  function handleGoogleLogin() {
+    showScreen("state");
+  }
+
+  function selectState(state) {
+    localStorage.setItem("state", state);
+
+    const list = document.getElementById("cityList");
+    const hint = document.getElementById("cityHint");
+
+    hint.innerText = `Штат: ${state}`;
+    list.innerHTML = "";
+
+    cities[state].forEach(city => {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerText = city;
+      div.onclick = () => selectCity(city);
+      list.appendChild(div);
+    });
+
+    showScreen("city");
+  }
+
+  function selectCity(city) {
+    localStorage.setItem("city", city);
+    alert("Готово! " + city);
+  }
+
+  function showScreen(id) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+  }
+</script>
 
 </body>
 </html>
