@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JOLDA · Работа</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: #ffffff;
+      color: #0f172a;
+      padding: 28px 24px 40px;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #475569;
+      margin-bottom: 24px;
+    }
+
+    .job {
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .job-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .job-desc {
+      font-size: 15px;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+
+    .job-meta {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .add-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 16px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(59,130,246,0.25);
+    }
+
+    .add-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* MODAL */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    input, textarea {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 14px;
+      font-size: 15px;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    .save {
+      width: 100%;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Работа</h1>
+  <div class="subtitle" id="cityLine"></div>
+
+  <div id="jobs"></div>
+
+  <button class="add-btn" onclick="openModal()">+ Добавить</button>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <h2 style="margin-top:0">Новое объявление</h2>
+
+      <input id="title" placeholder="Заголовок (например: Нужен водитель)">
+      <textarea id="desc" rows="4" placeholder="Описание"></textarea>
+      <input id="contact" placeholder="Телефон или WhatsApp">
+
+      <button class="save" onclick="saveJob()">Сохранить</button>
+    </div>
+  </div>
+
+  <script>
+    const state = localStorage.getItem("state");
+    const city = localStorage.getItem("city");
+
+    if (!state || !city) {
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("cityLine").innerText =
+      `Объявления в ${city}, ${state}`;
+
+    const jobsKey = "jobs_" + city;
+    const jobsEl = document.getElementById("jobs");
+
+    function renderJobs() {
+      jobsEl.innerHTML = "";
+      const jobs = JSON.parse(localStorage.getItem(jobsKey)) || [];
+
+      if (jobs.length === 0) {
+        jobsEl.innerHTML = "<p style='color:#64748b'>Пока нет объявлений</p>";
+        return;
+      }
+
+      jobs.forEach(job => {
+        const div = document.createElement("div");
+        div.className = "job";
+        div.innerHTML = `
+          <div class="job-title">${job.title}</div>
+          <div class="job-desc">${job.desc}</div>
+          <div class="job-meta">Контакт: ${job.contact}</div>
+        `;
+        jobsEl.appendChild(div);
+      });
+    }
+
+    function openModal() {
+      document.getElementById("modal").classList.add("active");
+    }
+
+    function saveJob() {
+      const title = document.getElementById("title").value.trim();
+      const desc = document.getElementById("desc").value.trim();
+      const contact = document.getElementById("contact").value.trim();
+
+      if (!title || !contact) {
+        alert("Заполни заголовок и контакт");
+        return;
+      }
+
+      const jobs = JSON.parse(localStorage.getItem(jobsKey)) || [];
+      jobs.unshift({ title, desc, contact });
+      localStorage.setItem(jobsKey, JSON.stringify(jobs));
+
+      document.getElementById("modal").classList.remove("active");
+      renderJobs();
+    }
+
+    renderJobs();
+  </script>
+
+</body>
+</html>
