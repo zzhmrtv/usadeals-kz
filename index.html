@@ -1,164 +1,39 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>USADEALS.KZ</title>
-
-<!-- Premium font INTER -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    background: linear-gradient(180deg, #f7faff, #e8f2ff);
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    animation: fadeIn 0.5s ease forwards;
-  }
-
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-
-  .box {
-    text-align: center;
-    max-width: 360px;
-    width: 100%;
-    padding: 0 14px;
-  }
-
-  /* Название */
-  .title {
-    font-size: 26px;
-    font-weight: 900;
-    color: #003b66;
-    margin-bottom: 4px;
-    letter-spacing: 1.1px;
-  }
-
-  /* Логотип */
-  .logo {
-    width: 95px;
-    margin: 4px auto 12px;
-  }
-
-  /* Подзаголовок */
-  .subtitle {
-    font-size: 13px;
-    font-weight: 600;
-    color: #005891;
-    margin-bottom: 18px;
-  }
-
-  /* Кнопки */
-  .row {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    padding: 14px 20px;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 800;
-    text-decoration: none;
-    color: #fff;
-    transition: 0.25s ease;
-  }
-
-  .btn-wh {
-    background: #25D366;
-  }
-
-  .btn-wh:hover {
-    background: #1ebe57;
-    transform: translateY(-2px);
-  }
-
-  .btn-tg {
-    background: #2AABEE;
-  }
-
-  .btn-tg:hover {
-    background: #1d9bd8;
-    transform: translateY(-2px);
-  }
-
-  .icon {
-    width: 18px;
-    height: 18px;
-  }
-
-  /* Блок О нас (Glassmorphism) */
-  .about {
-    background: rgba(255,255,255,0.45);
-    backdrop-filter: blur(10px);
-    border-radius: 14px;
-    padding: 14px 16px;
-    font-size: 13px;
-    line-height: 1.4;
-    color: #003b66;
-    font-weight: 600;
-    border: 1px solid rgba(255,255,255,0.35);
-  }
-
-  .about-title {
-    font-size: 16px;
-    font-weight: 900;
-    margin-bottom: 6px;
-  }
-
-  /* iPhone адаптация */
-  @media (max-width: 420px) {
-    .title { font-size: 24px; }
-    .btn { font-size: 15px; padding: 13px 18px; }
-    .logo { width: 90px; }
-  }
-
-</style>
-</head>
-
 <body>
 
-<div class="box">
+  <!-- Экран 1 -->
+  <section id="welcome" class="screen active">
+    <h1>Добро пожаловать</h1>
+    <p>Это приложение поможет тебе адаптироваться в США.</p>
+    <button onclick="goToState()">Начать</button>
+  </section>
 
-  <div class="title">USADEALS.KZ</div>
+  <!-- Экран 2 -->
+  <section id="state" class="screen">
+    <h2>Выбери штат</h2>
+    <select id="stateSelect">
+      <option>New York</option>
+      <option>California</option>
+      <option>Texas</option>
+      <option>Florida</option>
+      <option>Illinois</option>
+    </select>
+    <button onclick="goToCity()">Далее</button>
+  </section>
 
-  <img class="logo" src="logo.png" alt="logo">
+  <!-- Экран 3 -->
+  <section id="city" class="screen">
+    <h2>Выбери город</h2>
+    <select id="citySelect"></select>
+    <button onclick="goToRegister()">Далее</button>
+  </section>
 
-  <div class="subtitle">Оригинальные товары из США в Казахстан</div>
+  <!-- Экран 4 -->
+  <section id="register" class="screen">
+    <h2>Регистрация</h2>
+    <input type="text" placeholder="Имя">
+    <input type="email" placeholder="Email">
+    <button onclick="finish()">Готово</button>
+  </section>
 
-  <div class="row">
-    <a class="btn btn-wh" href="https://wa.me/77777777777" target="_blank">
-      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-      WhatsApp
-    </a>
-
-    <a class="btn btn-tg" href="https://t.me/YOUR_TELEGRAM_USERNAME" target="_blank">
-      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg">
-      Telegram
-    </a>
-  </div>
-
-  <div class="about">
-    <div class="about-title">О нас</div>
-    Мы — USADEALS.KZ. Помогаем заказывать оригинальные товары напрямую из США 
-    и доставлять по всему Казахстану. Работаем честно, быстро и прозрачно.
-  </div>
-
-</div>
-
+  <script src="app.js"></script>
 </body>
-</html>
