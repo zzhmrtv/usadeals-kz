@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JOLDA</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: #ffffff;
+      color: #0f172a;
+      padding: 32px 24px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 17px;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>JOLDA</h1>
+  <p id="location"></p>
+
+  <script>
+    const state = localStorage.getItem("state");
+    const city = localStorage.getItem("city");
+
+    if (!state || !city) {
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("location").innerText =
+      `Ты в ${city}, ${state}`;
+  </script>
+
+</body>
+</html>
