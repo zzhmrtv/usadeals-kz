@@ -18,6 +18,18 @@
       font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
       background: #ffffff;
       color: #0f172a;
+
+      /* 🔥 АНИМАЦИЯ */
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    body.show {
+      opacity: 1;
+    }
+
+    body.fade-out {
+      opacity: 0;
     }
 
     .screen {
@@ -193,6 +205,8 @@
   };
 
   window.onload = function () {
+    document.body.classList.add("show");
+
     google.accounts.id.renderButton(
       document.getElementById("googleSignIn"),
       { theme: "outline", size: "large", shape: "pill", width: 280 }
@@ -229,7 +243,7 @@
 
   function selectCity(city) {
     localStorage.setItem("city", city);
-    window.location.href = "app.html";
+    goTo("app.html");
   }
 
   function showScreen(id) {
@@ -237,6 +251,9 @@
     document.getElementById(id).classList.add("active");
   }
 </script>
+
+<!-- 🔥 ОБЩИЙ ФАЙЛ АНИМАЦИИ -->
+<script src="anim.js"></script>
 
 </body>
 </html>
