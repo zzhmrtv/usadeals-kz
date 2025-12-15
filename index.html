@@ -46,27 +46,30 @@
     h1 {
       font-size: 34px;
       font-weight: 700;
-      margin: 0 0 12px 0;
       letter-spacing: -0.03em;
+      margin: 0 0 12px 0;
     }
 
     p {
       font-size: 17px;
+      line-height: 1.45;
       color: #475569;
       margin: 0 0 24px 0;
       max-width: 320px;
     }
 
-    .card {
-      border: 1px solid #e2e8f0;
-      border-radius: 18px;
+    input {
+      width: 100%;
       padding: 18px;
-      font-size: 18px;
-      margin-bottom: 12px;
+      font-size: 17px;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 16px;
     }
 
-    .card:active {
-      background: #f1f5f9;
+    input:focus {
+      outline: none;
+      border-color: #3b82f6;
     }
 
     button {
@@ -78,9 +81,15 @@
       padding: 20px;
       font-size: 18px;
       font-weight: 600;
+      box-shadow: 0 10px 30px rgba(59,130,246,0.25);
+    }
+
+    button:active {
+      transform: scale(0.98);
     }
 
     .google-btn {
+      margin-top: 8px;
       display: flex;
       justify-content: center;
     }
@@ -98,6 +107,19 @@
       text-align: center;
       margin-top: 18px;
     }
+
+    .card {
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 18px;
+      font-size: 18px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    .card:active {
+      background: #f1f5f9;
+    }
   </style>
 </head>
 <body>
@@ -108,7 +130,7 @@
 
   <div class="center">
     <h1>Регистрация</h1>
-    <p>Быстрый вход через Google.</p>
+    <p>Быстрый вход через Google или вручную.</p>
 
     <div
       id="g_id_onload"
@@ -118,9 +140,17 @@
     </div>
 
     <div class="google-btn" id="googleSignIn"></div>
+
+    <div class="divider">или</div>
+
+    <input type="text" placeholder="Имя">
+    <input type="email" placeholder="Email">
   </div>
 
-  <div class="footer">Без спама · Без обмана</div>
+  <div>
+    <button onclick="goToState()">Продолжить</button>
+    <div class="footer">Без спама · Без обмана</div>
+  </div>
 </section>
 
 <!-- STATE -->
@@ -146,7 +176,7 @@
 
   <div class="center">
     <h1>Город</h1>
-    <p id="cityHint"></p>
+    <p id="cityTitle"></p>
 
     <div id="cityList"></div>
   </div>
@@ -162,7 +192,7 @@
     "Florida": ["Miami", "Orlando", "Tampa"]
   };
 
-  window.onload = () => {
+  window.onload = function () {
     google.accounts.id.renderButton(
       document.getElementById("googleSignIn"),
       { theme: "outline", size: "large", shape: "pill", width: 280 }
@@ -170,24 +200,28 @@
   };
 
   function handleGoogleLogin() {
+    goToState();
+  }
+
+  function goToState() {
     showScreen("state");
   }
 
   function selectState(state) {
     localStorage.setItem("state", state);
 
-    const list = document.getElementById("cityList");
-    const hint = document.getElementById("cityHint");
+    const cityList = document.getElementById("cityList");
+    const cityTitle = document.getElementById("cityTitle");
 
-    hint.innerText = `Штат: ${state}`;
-    list.innerHTML = "";
+    cityTitle.innerText = `Штат: ${state}`;
+    cityList.innerHTML = "";
 
     cities[state].forEach(city => {
       const div = document.createElement("div");
       div.className = "card";
       div.innerText = city;
       div.onclick = () => selectCity(city);
-      list.appendChild(div);
+      cityList.appendChild(div);
     });
 
     showScreen("city");
@@ -195,7 +229,7 @@
 
   function selectCity(city) {
     localStorage.setItem("city", city);
-    alert("Готово! " + city);
+    alert("Вы выбрали: " + city);
   }
 
   function showScreen(id) {
